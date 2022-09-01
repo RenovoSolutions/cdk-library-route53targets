@@ -1,15 +1,75 @@
-const { awscdk } = require('projen');
+const { awscdk, javascript } = require('projen');
 const project = new awscdk.AwsCdkConstructLibrary({
-  author: 'Brandon Miller',
-  authorAddress: 'brandon@digital-reboot.com',
-  cdkVersion: '2.1.0',
+  author: 'Renovo Solutions',
+  authorAddress: 'devops@renovo1.com',
+  cdkVersion: '2.39.1',
   defaultReleaseBranch: 'main',
-  name: 'cdk-library-elasticloadbalancing',
-  repositoryUrl: 'https://github.com/brandon/cdk-library-elasticloadbalancing.git',
-
-  // deps: [],                /* Runtime dependencies of this module. */
-  // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
-  // devDeps: [],             /* Build dependencies for this module. */
-  // packageName: undefined,  /* The "name" in package.json. */
+  name: '@renovosolutions/cdk-library-route53targets',
+  description: 'An AWS CDK library that adds functionality for targetting additional resources in Route53',
+  repositoryUrl: 'https://github.com/RenovoSolutions/cdk-library-route53targets.git',
+  keywords: [
+    'aws-cdk',
+    'aws-cdk-construct',
+    'aws-route53',
+    'projen',
+  ],
+  depsUpgrade: true,
+  depsUpgradeOptions: {
+    workflowOptions: {
+      labels: ['auto-approve', 'deps-upgrade'],
+    },
+    exclude: ['projen'],
+  },
+  githubOptions: {
+    mergify: true,
+    mergifyOptions: {
+      rules: [
+        {
+          name: 'Automatically approve dependency upgrade PRs if they pass build',
+          actions: {
+            review: {
+              type: 'APPROVE',
+              message: 'Automatically approved dependency upgrade PR',
+            },
+          },
+          conditions: [
+            'label=auto-approve',
+            'label=deps-upgrade',
+            '-label~=(do-not-merge)',
+            'status-success=build',
+            'author=github-actions[bot]',
+            'title="chore(deps): upgrade dependencies"',
+          ],
+        },
+      ],
+    },
+    pullRequestLintOptions: {
+      semanticTitle: true,
+      semanticTitleOptions: {
+        types: [
+          'chore',
+          'docs',
+          'feat',
+          'fix',
+          'ci',
+          'refactor',
+        ],
+      },
+    },
+  },
+  stale: true,
+  releaseToNpm: true,
+  release: true,
+  npmAccess: javascript.NpmAccess.PUBLIC,
+  docgen: true,
+  eslint: true,
+  publishToPypi: {
+    distName: 'renovosolutions.aws-cdk-route53targets',
+    module: 'route53targets',
+  },
+  publishToNuget: {
+    dotNetNamespace: 'renovosolutions',
+    packageId: 'Renovo.AWSCDK.Route53Targets',
+  },
 });
 project.synth();
