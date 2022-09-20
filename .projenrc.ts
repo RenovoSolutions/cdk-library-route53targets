@@ -1,5 +1,6 @@
-const { awscdk, javascript } = require('projen');
+import { awscdk, javascript } from 'projen';
 const project = new awscdk.AwsCdkConstructLibrary({
+  projenrcTs: true,
   author: 'Renovo Solutions',
   authorAddress: 'devops@renovo1.com',
   cdkVersion: '2.41.0',
@@ -76,7 +77,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
 new javascript.UpgradeDependencies(project, {
   include: ['projen'],
   taskName: 'upgrade-projen',
-  labels: ['projen-upgrade'],
   workflow: true,
   workflowOptions: {
     schedule: javascript.UpgradeDependenciesSchedule.expressions(['0 2 * * 1']),
