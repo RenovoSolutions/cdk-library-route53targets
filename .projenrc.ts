@@ -3,7 +3,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   projenrcTs: true,
   author: 'Renovo Solutions',
   authorAddress: 'devops@renovo1.com',
-  cdkVersion: '2.43.0',
+  cdkVersion: '2.43.1',
   defaultReleaseBranch: 'main',
   name: '@renovosolutions/cdk-library-route53targets',
   description: 'An AWS CDK library that adds functionality for targetting additional resources in Route53',
