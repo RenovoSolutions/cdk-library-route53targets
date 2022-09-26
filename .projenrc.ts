@@ -1,8 +1,9 @@
-const { awscdk, javascript } = require('projen');
+import { awscdk, javascript } from 'projen';
 const project = new awscdk.AwsCdkConstructLibrary({
+  projenrcTs: true,
   author: 'Renovo Solutions',
   authorAddress: 'devops@renovo1.com',
-  cdkVersion: '2.41.0',
+  cdkVersion: '2.43.1',
   defaultReleaseBranch: 'main',
   name: '@renovosolutions/cdk-library-route53targets',
   description: 'An AWS CDK library that adds functionality for targetting additional resources in Route53',
@@ -76,7 +77,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
 new javascript.UpgradeDependencies(project, {
   include: ['projen'],
   taskName: 'upgrade-projen',
-  labels: ['projen-upgrade'],
   workflow: true,
   workflowOptions: {
     schedule: javascript.UpgradeDependenciesSchedule.expressions(['0 2 * * 1']),
