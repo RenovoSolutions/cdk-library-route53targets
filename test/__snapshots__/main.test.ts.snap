@@ -1,22 +1,22 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Snapshot 1`] = `
-Object {
-  "Parameters": Object {
-    "BootstrapVersion": Object {
+{
+  "Parameters": {
+    "BootstrapVersion": {
       "Default": "/cdk-bootstrap/hnb659fds/version",
       "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
       "Type": "AWS::SSM::Parameter::Value<String>",
     },
   },
-  "Resources": Object {
-    "AliasRecord851000D2": Object {
-      "Properties": Object {
-        "AliasTarget": Object {
+  "Resources": {
+    "AliasRecord851000D2": {
+      "Properties": {
+        "AliasTarget": {
           "DNSName": "dualstack.publiclb-1234567890.us-east-1.elb.amazonaws.com",
           "HostedZoneId": "Z3DZXE0Q79N41H",
         },
-        "HostedZoneId": Object {
+        "HostedZoneId": {
           "Ref": "HostedZoneDB99F866",
         },
         "Name": "publiclb.example.com.",
@@ -24,29 +24,29 @@ Object {
       },
       "Type": "AWS::Route53::RecordSet",
     },
-    "HostedZoneDB99F866": Object {
-      "Properties": Object {
+    "HostedZoneDB99F866": {
+      "Properties": {
         "Name": "example.com.",
       },
       "Type": "AWS::Route53::HostedZone",
     },
   },
-  "Rules": Object {
-    "CheckBootstrapVersion": Object {
-      "Assertions": Array [
-        Object {
-          "Assert": Object {
-            "Fn::Not": Array [
-              Object {
-                "Fn::Contains": Array [
-                  Array [
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
                     "1",
                     "2",
                     "3",
                     "4",
                     "5",
                   ],
-                  Object {
+                  {
                     "Ref": "BootstrapVersion",
                   },
                 ],
