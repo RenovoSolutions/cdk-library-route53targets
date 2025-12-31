@@ -21,45 +21,16 @@ const project = new awscdk.AwsCdkConstructLibrary({
       labels: ['auto-approve', 'deps-upgrade'],
     },
     exclude: ['projen'],
+    workflow: false,
   },
+  buildWorkflow: false,
   githubOptions: {
-    mergify: true,
-    mergifyOptions: {
-      rules: [
-        {
-          name: 'Automatically approve dependency upgrade PRs if they pass build',
-          actions: {
-            review: {
-              type: 'APPROVE',
-              message: 'Automatically approved dependency upgrade PR',
-            },
-          },
-          conditions: [
-            'label=auto-approve',
-            'label=deps-upgrade',
-            '-label~=(do-not-merge)',
-            'status-success=build',
-            'author=github-actions[bot]',
-            'title="chore(deps): upgrade dependencies"',
-          ],
-        },
-      ],
-    },
+    mergify: false,
     pullRequestLintOptions: {
-      semanticTitle: true,
-      semanticTitleOptions: {
-        types: [
-          'chore',
-          'docs',
-          'feat',
-          'fix',
-          'ci',
-          'refactor',
-        ],
-      },
+      semanticTitle: false,
     },
   },
-  stale: true,
+  stale: false,
   releaseToNpm: true,
   release: true,
   npmAccess: javascript.NpmAccess.PUBLIC,
@@ -78,11 +49,11 @@ const project = new awscdk.AwsCdkConstructLibrary({
 new javascript.UpgradeDependencies(project, {
   include: ['projen'],
   taskName: 'upgrade-projen',
-  workflow: true,
-  workflowOptions: {
-    schedule: javascript.UpgradeDependenciesSchedule.expressions(['0 2 * * 1']),
-  },
+  workflow: false,
   pullRequestTitle: 'upgrade projen',
 });
+
+project.gitignore.exclude('!/.github/workflows/release.yml');
+project.gitignore.addPatterns('.github/workflows/release.yml');
 
 project.synth();
